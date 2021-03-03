@@ -48,7 +48,9 @@ const originalData = [
     gender: 'Genderqueer',
   },
 ];
+
 function App() {
+
   //map over and display data
   const [tableData, setTableData] = useState(originalData);
 
@@ -58,8 +60,12 @@ function App() {
   //depicts which column is selected and sets state to that header
   const [selectedColumn, setSelectedColumn] = useState('');
 
+  //fixed header state
   const [fixedHeader, setFixedHeader] = useState([]);
+
+  //unfixed header state
   const [baseHeaders, setBaseHeaders] = useState(headers);
+
 
   const columnHeaders = [...fixedHeader, ...baseHeaders];
 
@@ -84,7 +90,8 @@ function App() {
     if (!selectedColumn) setSelectedColumn(sortColumn);
     if ((selectedColumn && sortColumn !== selectedColumn) || counter === 3)
       return resetBackToInitialState();
-    const sorted = tableData.sort((a, b) => comparator(a, b, sortColumn));
+    const data = [...tableData];
+    const sorted = data.sort((a, b) => comparator(a, b, sortColumn));
     setTableData(sorted);
     setCounter((current) => (current += 1));
   };
@@ -100,8 +107,16 @@ function App() {
   };
 
   const handlePinColumn = (header) => {
-    setFixedHeader([...fixedHeader, header]);
-    setBaseHeaders([...baseHeaders.filter((h) => h !== header)]);
+    //check if header is already in fixed state
+    // if it is, move to base state
+    
+    if (fixedHeader.includes(header)) {
+      setBaseHeaders([...baseHeaders, header]);
+      setFixedHeader([...fixedHeader.filter((h) => h !== header)]);
+    } else {
+      setFixedHeader([...fixedHeader, header]);
+      setBaseHeaders([...baseHeaders.filter((h) => h !== header)]);
+    }
   };
 
   return (
@@ -133,4 +148,6 @@ function App() {
     </div>
   );
 }
+
+
 export default App;
