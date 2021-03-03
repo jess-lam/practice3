@@ -89,6 +89,16 @@ function App() {
     setCounter((current) => (current += 1));
   };
 
+  const renderTableRow = (data) => {
+    return (
+      <tr key={data.id}>
+        {columnHeaders.map((h) => {
+          return <td key={h}>{data[h]}</td>;
+        })}
+      </tr>
+    );
+  };
+
   const handlePinColumn = (header) => {
     setFixedHeader([...fixedHeader, header]);
     setBaseHeaders([...baseHeaders.filter((h) => h !== header)]);
