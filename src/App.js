@@ -64,6 +64,16 @@ function App() {
     setTableData(originalData);
   };
 
+  const comparator = (obj1, obj2, sortColumn) => {
+    if (counter < 2) {
+      // asc
+      return obj1[sortColumn] > obj2[sortColumn] ? 1 : -1;
+    } else {
+      // desc
+      return obj1[sortColumn] > obj2[sortColumn] ? -1 : 1;
+    }
+  };
+
   const handleSort = (sortColumn) => {
     if (!selectedColumn) setSelectedColumn(sortColumn);
     if ((selectedColumn && sortColumn !== selectedColumn) || counter === 3)
