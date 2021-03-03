@@ -64,6 +64,15 @@ function App() {
     setTableData(originalData);
   };
 
+  const handleSort = (sortColumn) => {
+    if (!selectedColumn) setSelectedColumn(sortColumn);
+    if ((selectedColumn && sortColumn !== selectedColumn) || counter === 3)
+      return resetBackToInitialState();
+    const sorted = tableData.sort((a, b) => comparator(a, b, sortColumn));
+    setTableData(sorted);
+    setCounter((current) => (current += 1));
+  };
+
   return (
     <div className='container'>
       <table>
