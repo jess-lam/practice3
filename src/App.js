@@ -48,6 +48,7 @@ const originalData = [
     gender: 'Genderqueer',
   },
 ];
+
 function App() {
 
   //map over and display data
@@ -67,6 +68,7 @@ function App() {
 
 
   const columnHeaders = [...fixedHeader, ...baseHeaders];
+
 
   const resetBackToInitialState = () => {
     setSelectedColumn('');
@@ -146,5 +148,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
