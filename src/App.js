@@ -58,6 +58,12 @@ function App() {
   //depicts which column is selected and sets state to that header
   const [selectedColumn, setSelectedColumn] = useState('');
 
+  const [fixedHeader, setFixedHeader] = useState([]);
+  const [baseHeaders, setBaseHeaders] = useState(headers);
+
+  const columnHeaders = [...fixedHeader, ...baseHeaders];
+
+
   const resetBackToInitialState = () => {
     setSelectedColumn('');
     setCounter(1);
@@ -81,6 +87,11 @@ function App() {
     const sorted = tableData.sort((a, b) => comparator(a, b, sortColumn));
     setTableData(sorted);
     setCounter((current) => (current += 1));
+  };
+
+  const handlePinColumn = (header) => {
+    setFixedHeader([...fixedHeader, header]);
+    setBaseHeaders([...baseHeaders.filter((h) => h !== header)]);
   };
 
   return (
